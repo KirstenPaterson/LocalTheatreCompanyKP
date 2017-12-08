@@ -1,0 +1,70 @@
+﻿@model LocalTheatreCompany.Models.Article
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Article</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.postText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.postText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.postDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.postDate)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    @foreach (var item in Model.Comments)
+    {
+        <div>
+            <label> Replied by</label>
+            <label>@item.commentAuthor</label>
+            <label>     on      </label>
+            <label>@item.CommentDate</label>
+        </div>
+        <div>@item.commentText</div>
+    }
+</div>
+<div>
+    @Html.Partial("_AddComment", new LocalTheatreCompany.Models.Comment { articleId = Model.articleId})
+</div>
+<div>@if (User.IsInRole("Admin"))
+{
+    @Html.ActionLink("Edit", "Edit", new { id = Model.articleId })
+}
+</div>
+<p>
+   
+    @Html.ActionLink("Back to List", "Index")
+</p>
